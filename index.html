@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麥當勞</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/mystyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="../js/bootstrap.bundle.js"></script>
+    <link rel="icon" href="./mc_img/MC_Logo_Small.jpg">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .carousel-position {
+            position: absolute;
+            top: 10%;
+            left: 3%;
+            bottom: 25%;
+            padding-top: 10rem;
+            padding-bottom: 5rem;
+            height: 350px;
+            width: 300px;
+            color: white;
+            text-align: center;
+        }
+
+
+        /* #sec{
+            position: relative;
+            top: 70px;
+        } */
+    </style>
+</head>
+
+<body>
+    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light bg-white py-1 d-flex justify-content-end">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="index.html"><img src="/mc_img/MCLogo.png" class="w-50" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse topnav" id="navbarNav" >
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="foodmap.html">美食導覽</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="startorder.html">開始點餐</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="restlocate.html">餐廳位置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">關於麥當勞</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li> -->
+                </ul>
+            </div>
+            <button type="button" class="btn btn-danger me-1">立即加入</button>
+            <button type="button" class="shadow btn-outline-black btn btn-black"
+                style="color: black; border: 1px solid white;">登入</button>
+        </div>
+    </nav>
+
+    <!-- <div class="shadow fixed-top bg-white p-3 d-flex justify-content-end gap-2">
+        <div>
+
+            <a href="">Back to mainweb<img src="mc_img/MCLogo.png" alt="MainLogo"></a>
+        </div>
+        <button type="button" class="btn btn-danger">立即加入</button>
+        <button type="button" class="btn btn-black" style="color: white; border: 1px solid white;">登入</button>
+    </div> -->
+
+    <div class="container " style="padding: 20px;" id="sec">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+                <button type="button" id="carouselPauseBtn" class="btn btn-outline-secondary"
+                    onclick="toggleCarousel()">
+                    <i class="bi bi-pause-fill"></i> 暫停
+                </button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img src="./mc_img/CAROUSEL1.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="./mc_img/CAROUSEL2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="./mc_img/CAROUSEL3.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="./mc_img/CAROUSEL4.png" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- <picture>
+            <source media="(max-width: 768px)" srcset="./img/spirited_away_2.jpg">
+            <img src="./img/spirited_away.jpg" class="img-fluid mb-5 rounded-start rounded-end" alt="神隱少女">
+        </picture> -->
+        <!-- <img src="./img/spirited_away.jpg" class="rounded-start rounded-end img-fluid mb-5"> -->
+        <!-- <div class="card">
+            <div class="card-body" style="background-color: black; padding: 20px; border: 1px solid white; border-radius: 5px;">
+                <p class="card-text pp">神隱少女</p>
+                <p class="card-text pp">2001 | 年齡分級：7+ | 2 小時 5 分鐘 | 動漫電影</p>
+                <p class="card-text pp">千尋意外來到一個由女巫治理的魔法世界。在這裏，所有違抗女巫的人都被變成了動物。</p>
+                <p class="card-text pp">主演：柊瑠美，入野自由，夏木麻里</p>
+            </div>
+        </div> -->
+
+
+        <h3 class="mt-5 text-white">類似影片</h3>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/70028883"><img
+                        src="./img/img_01.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
+            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/60032294"><img
+                        src="./img/img_02.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
+            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/60027106"><img
+                        src="./img/img_03.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
+            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/70106454"><img
+                        src="./img/img_04.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
+        </div>
+    </div>
+
+    <script>
+        const carouselElement = document.getElementById('carouselExampleIndicators');
+
+        // 1. 改用 JS 初始化，直接設定參數解決滑鼠懸停問題
+        // pause: false 代表滑鼠移入時不暫停
+        // interval: 2000 代表 2秒換一次
+        const carousel = new bootstrap.Carousel(carouselElement, {
+            interval: 2000,
+            pause: false
+        });
+
+        // 2. 初始化後手動開始播放
+        carousel.cycle();
+
+        const pauseBtn = document.getElementById('carouselPauseBtn');
+        let isPaused = false;
+
+        function toggleCarousel() {
+            if (isPaused) {
+                carousel.cycle();
+                pauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> 暫停';
+            } else {
+                carousel.pause();
+                pauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> 播放';
+            }
+            isPaused = !isPaused;
+        }
+
+        // 3. 監聽切換完成事件
+        carouselElement.addEventListener('slid.bs.carousel', function () {
+            // 如果目前狀態是 "暫停"
+            if (isPaused) {
+                // 【關鍵修改】使用 setTimeout 延遲 10 毫秒執行
+                // 這是為了確保這行指令在 Bootstrap 內部的「自動重啟邏輯」之後才執行
+                setTimeout(() => {
+                    carousel.pause();
+                }, 10);
+            }
+        });
+    </script>
+</body>
+
+</html>
