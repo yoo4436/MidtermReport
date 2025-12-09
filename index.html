@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>麥當勞首頁</title>
+    <title>首頁</title>
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/mystyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -47,7 +47,7 @@
                 </button>
             </div>
 
-            <div class="collapse navbar-collapse topnav" id="navbarNav" >
+            <div class="collapse navbar-collapse topnav" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="foodmap.html">美食導覽</a>
@@ -122,6 +122,11 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+
+
+
+
+
         </div>
         <!-- <picture>
             <source media="(max-width: 768px)" srcset="./img/spirited_away_2.jpg">
@@ -138,18 +143,69 @@
         </div> -->
 
 
-        <h3 class="mt-5 text-white">類似影片</h3>
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/70028883"><img
-                        src="./mc_img/event1.avif" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
-            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/60032294"><img
-                        src="./mc_img/event1.avif" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
-            <!-- <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/60027106"><img
-                        src="./img/img_03.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div>
-            <div class="col-12 col-md-6 col-lg-3"><a href="https://www.netflix.com/tw/title/70106454"><img
-                        src="./img/img_04.jpg" class="img-fluid mb-3 rounded-start rounded-end"></a></div> -->
+        <div class="container">
+
+            <h3 class="mt-5 text-white">類似影片</h3>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <img src="./mc_img/event1.avif" class="img-fluid w-100 rounded-start rounded-end"
+                            style="object-fit: cover;">
+                        <div class="container">
+                            <h3 class="mt-3">現正推出</h3>
+                            <p class="pstart">想了解麥當勞有哪些最新活動嗎？你不想錯過的美食、最即時的優惠內容... 馬上探索、馬上行動！</p>
+                            <p><a href="https://www.mcdonalds.com/tw/zh-tw/whats-hot.html"><button type="button"
+                                        class="btn btn-outline-warning">了解更多</button></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <img src="./mc_img/delivery.avif" class="img-fluid w-100 rounded-start rounded-end"
+                            style="object-fit: cover;">
+                        <div class="container">
+                            <h3 class="mt-3">24hr歡樂送</h3>
+                            <p class="pstart">不想出門？還是不方便出門？麥當勞歡樂送APP提供24小時點餐服務，讓你想吃就點，歡樂不間斷</p>
+                            <p><a href="https://www.mcdonalds.com/tw/zh-tw/digital/mcdelivery.html"><button
+                                        type="button" class="btn btn-outline-warning">了解更多</button></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <img src="./mc_img/McCafe.webp" class="img-fluid w-100 rounded-start rounded-end"
+                            style="object-fit: cover;">
+                        <div class="container">
+                            <h3 class="mt-3">一杯McCafé 一段對話</h3>
+                            <p class="pstart">一杯咖啡創造一段時光，在這段時間，您可以開啟一段對話，享受香醇，興許會是一段故事的新開始</p>
+                            <p><a href="https://www.mcdonalds.com/tw/zh-tw/whats-hot/0430SelectBrewCoffee.html"><button
+                                        type="button" class="btn btn-outline-warning">了解更多</button></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card">
+                        <img src="./mc_img/convenient.avif" class="img-fluid w-100 rounded-start rounded-end"
+                            style="object-fit: cover;">
+                        <div class="container">
+                            <h3 class="mt-3">數位便利</h3>
+                            <p class="pstart">總是為你想得更多，現在就利用多樣且便利的數位服務，來麥當勞找尋美味與樂趣吧！</p>
+                            <p><a href="https://www.mcdonalds.com/tw/zh-tw/digital.html"><button type="button"
+                                        class="btn btn-outline-warning">了解更多</button></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <button type="button" 
+        id="btn-back-to-top" 
+        class="btn btn-danger btn-lg rounded-circle shadow"
+        style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000;"
+        onclick="backToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </button>
 
     <script>
         const carouselElement = document.getElementById('carouselExampleIndicators');
@@ -190,6 +246,28 @@
                 }, 10);
             }
         });
+
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        // 監聽網頁滾動事件
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            // 當卷軸向下滾動超過 200px 時，顯示按鈕
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // 點擊按鈕時觸發的功能
+        function backToTop() {
+            // 使用 behavior: 'smooth' 讓滾動有平滑動畫效果
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 
