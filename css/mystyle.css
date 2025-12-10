@@ -102,6 +102,12 @@ div>.pp {
   }
 } */
 
+.onright {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
 @media (max-width: 991.98px) {
   .text-block {
     position: relative;  /* 改回相對定位，這樣就會乖乖排在圖片下面 */
@@ -119,5 +125,39 @@ div>.pp {
     position: relative;
     text-align: right;   /* 讓按鈕靠右 */
     margin-top: 1rem;
+    padding-bottom: 5%;
   }
+}
+
+/* 1. 設定圖片通用規則 */
+.tt {
+    width: 100%;
+    /* 關鍵：使用 cover 模式，讓圖片填滿設定的框框，多餘的會被裁掉，不會變形 */
+    object-fit: cover; 
+    
+    /* 關鍵：設定圖片重心在「右側」 */
+    /* 因為你的漢堡、公仔都在右邊，這樣縮小時會優先保留右邊，裁掉左邊的背景 */
+    object-position: 80% center; 
+}
+
+/* 2. 桌機版 (寬螢幕) */
+/* 這裡設定跟你原圖差不多的扁長比例，例如 21:9 */
+@media (min-width: 992px) {
+    .tt {
+        /* 設定固定的長寬比，瀏覽器在圖片載入前就知道高度，解決 F5 跑版問題 */
+        aspect-ratio: 21 / 9; 
+    }
+}
+
+/* 3. 平板與手機版 (窄螢幕) */
+/* 手機如果用 21:9 會太扁，我們強制改成 16:9 或 4:3 讓它變高一點 */
+@media (max-width: 991.98px) {
+    .tt {
+        /* ★ 強制設定一個高度，不讓它隨寬度縮到太小 ★ */
+        height: 280px !important; 
+        
+        /* 設定重點在「右邊」(因為你的漢堡、公仔、奶昔大哥都在右邊) */
+        /* 這樣左邊的空白背景會被切掉，畫面會像放大鏡一樣聚焦在右邊 */
+        object-position: 85% center;
+    }
 }
