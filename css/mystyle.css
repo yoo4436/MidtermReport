@@ -42,3 +42,15 @@ div>.pp {
 .pstart {
   text-indent: 2rem;
 }
+
+/* Bottom right text */
+.text-block {
+  position: absolute;
+  bottom: 100px;
+  left: 80px;
+  background-color: white;
+  color: black;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
