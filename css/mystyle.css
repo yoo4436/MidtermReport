@@ -177,3 +177,72 @@ div>.pp {
   width: 100%;
   height: 100%;
 }
+
+
+/* --- 手風琴選單 (電腦手機通用設定) --- */
+
+/* 1. 選單容器樣式 */
+.custom-accordion-menu {
+    background-color: white; 
+    border-radius: 0 0 5px 5px; /* 下方圓角 */
+    padding: 15px 0;
+    margin-top: 0; /* 緊貼導覽列 */
+}
+
+/* 2. 選項文字樣式 */
+.custom-accordion-menu .dropdown-item {
+    color: black; 
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 20px; /* 增加點擊範圍 */
+    transition: 0.2s;
+}
+
+/* 3. 滑鼠移過選項的效果 */
+.custom-accordion-menu .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+    color: #db0007; 
+}
+
+/* --- 電腦版專用調整 (>= 992px) --- */
+@media (min-width: 992px) {
+    .custom-accordion-menu {
+        position: absolute; /* 絕對定位：展開時會覆蓋在輪播圖上方 */
+        left: 0;
+        right: 0;
+        width: 100%;
+        animation: slideDown 0.3s ease; /* 展開動畫 */
+    }
+    
+    /* 下滑動畫 */
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+/* --- 手機版專用調整 (< 992px) --- */
+@media (max-width: 991.98px) {
+    .custom-accordion-menu {
+        position: static; /* 靜態定位：這就是「手風琴」效果，會把下方內容往下推 */
+        background-color: #f8f9fa; /* 手機版改回淺灰底 (若想維持紅色可刪除此行) */
+        box-shadow: none !important; /* 移除陰影 */
+    }
+
+    /* 手機版文字顏色改回深色 (配合淺灰底) */
+    .custom-accordion-menu .dropdown-item {
+        color: #333;
+    }
+    
+    /* 手機版選項 Hover 改為紅色字 */
+    .custom-accordion-menu .dropdown-item:hover {
+        background-color: transparent;
+        color: #db0007;
+    }
+}
+
+.menu{
+    width: 10%;
+    height: 10%;
+    /* margin-right: 10px; */
+}
