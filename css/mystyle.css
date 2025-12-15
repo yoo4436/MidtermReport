@@ -246,3 +246,88 @@ div>.pp {
     height: 10%;
     /* margin-right: 10px; */
 }
+
+/* 覆蓋 ScrollSpy 激活時的顏色 */
+.list-group-item.active {
+    z-index: 2;
+    color: #fff !important;
+    background-color: #db0007 !important; /* 麥當勞紅 */
+    border-color: #db0007 !important;
+    font-weight: bold;
+}
+
+/* --- Flip Card 翻轉卡片特效 --- */
+
+/* 1. 卡片容器 */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  /* 設定長寬比，這裡設 1:1 正方形，也可以改 4/3 或 3/4 */
+  aspect-ratio: 1 / 1; 
+  perspective: 1000px; /* 3D 透視感，數字越小透視感越強 */
+  cursor: pointer;
+}
+
+/* 2. 內部容器 (負責翻轉的那個盒子) */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s; /* 翻轉速度 */
+  transform-style: preserve-3d; /* 保留 3D 空間 */
+}
+
+/* 3. 觸發翻轉 (滑鼠移入 或 手機點擊) */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* 4. 正面與背面共用設定 */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* 隱藏背面 (關鍵！) */
+  backface-visibility: hidden;
+  border-radius: 10px; /* 圓角 */
+  overflow: hidden; /* 確保圖片不超出圓角 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 5. 正面樣式 */
+.flip-card-front {
+  background-color: #fff;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 確保圖片填滿且不變形 */
+}
+
+/* 6. 背面樣式 */
+.flip-card-back {
+  background-color: #db0007; /* 麥當勞紅 */
+  color: white;
+  transform: rotateY(180deg); /* 預設先轉 180 度藏在後面 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+/* 在正面加一個小小的提示圖示 */
+.flip-card-front::after {
+    content: "\F134"; /* Bootstrap Icons 的翻轉圖示代碼 */
+    font-family: "bootstrap-icons";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 12px;
+}
