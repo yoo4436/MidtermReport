@@ -426,23 +426,52 @@
         // 送出訂單 (這裡僅作範例，未來可連接 Google Apps Script)
         function submitOrder() {
             if (cart.length === 0) {
-                alert("購物車是空的喔！請先選擇餐點。");
+                alert("購物車是空的喔！");
                 return;
             }
-            
-            // 準備資料
-            const orderInfo = {
-                items: cart,
-                total: document.getElementById('total-price').innerText,
-                time: new Date().toLocaleString()
-            };
 
-            console.log("訂單資料：", orderInfo);
-            alert(`訂單已送出！\n總金額：${orderInfo.total}\n(目前為演示模式，尚未連接後端資料庫)`);
+            // 顯示讀取中...
+            const btn = document.querySelector('button[onclick="submitOrder()"]');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 處理中...';
+
+            // 準備只傳送 ID 和 數量 (不傳價格，交給後端算)
+            const payload = {
+                items: cart.map(item => ({ id: item.id, qty: item.qty }))
+            };
             
-            // 清空購物車 (可選)
-            // cart = [];
-            // updateCartUI();
+            // ★★★ 請把這裡換成你的 GAS 網址 ★★★
+            const scriptURL = "https://script.google.com/macros/s/AKfycbz92WApKsE3wkgMaAPhuX3WtVuCtknobsObpOQm-f4DntQuSOu7LrREoeo5qMjUM5Sj/exec"; 
+
+            fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                // 使用 no-cors 模式避免跨域問題，但這樣無法讀取後端回傳的 JSON
+                // 若要讀取回傳值，需要更複雜的設定。
+                // 為了專題簡單起見，我們使用 text/plain 繞過
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success"){
+                    alert("✅ 訂單成功！\n後端確認金額:$" + data.serverTotal);
+                    // 清空購物車
+                    cart = [];
+                    updateCartUI();
+                } else {
+                    alert("❌ 發生錯誤：" + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("連線發生問題，請稍後再試。");
+            })
+            .finally(() => {
+                // 恢復按鈕
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            });
         }
 
         // 頁面載入時先渲染一次全部商品
