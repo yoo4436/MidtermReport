@@ -1171,6 +1171,18 @@
             // 使用 behavior: 'smooth' 讓滾動有平滑動畫效果
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        /* --- iOS Flip Card 優化腳本 --- */
+        // 等網頁載入完成後執行
+        document.addEventListener("DOMContentLoaded", function() {
+            // 找到所有 class 為 flip-card 的元素
+            var cards = document.querySelectorAll('.flip-card');
+            
+            // 幫每一個卡片加上 onclick="void(0)"
+            cards.forEach(function(card) {
+                card.setAttribute('onclick', 'void(0)');
+            });
+        });
     </script>
 </body>
 
