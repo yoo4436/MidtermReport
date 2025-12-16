@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>尋找餐廳</title>
+    <title>餐廳位置</title>
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/mystyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <script src="./js/bootstrap.bundle.js"></script>
     <link rel="icon" href="./mc_img/MC_Logo_Small.jpg">
     <style>
@@ -15,14 +17,39 @@
             background-color: white;
         }
 
-        div>.pp {
-            color: white;
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 10px;
+            z-index: 1;
         }
 
-        /* #sec{
-            position: relative;
-            top: 70px;
-        } */
+        .store-list-item {
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 5px solid transparent;
+        }
+
+        .store-list-item:hover {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        #store-list-container {
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 991px) {
+            #map {
+                height: 400px;
+            }
+
+            #store-list-container {
+                height: auto;
+                max-height: 400px;
+            }
+        }
     </style>
 </head>
 
@@ -48,59 +75,29 @@
                             aria-labelledby="foodMenu">
                             <div class="d-flex flex-wrap justify-content-center text-center mx-auto py-3"
                                 style="max-width: 1400px;">
-
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#breakfast">
-                                        <img src="./mc_menu/menu-bf.avif" alt="早餐" class="menu me-2">早餐
-                                    </a>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#breakfast"><img
+                                            src="./mc_menu/menu-bf.avif" alt="早餐" class="menu me-2">早餐</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#cpseries"><img
+                                            src="./mc_menu/menu-setmeal.avif" alt="" class="menu me-2">超值系列</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#selectedseries"><img
+                                            src="./mc_menu/menu-super.avif" alt="" class="menu me-2">極選系列</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#setmeal"><img
+                                            src="./mc_menu/menu-subset.webp" alt="" class="menu me-2">超值配餐</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#happymeal"><img
+                                            src="./mc_menu/menu-happymeal.avif" alt="" class="menu me-2">Happy Meal®</a>
                                 </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#cpseries">
-                                        <img src="./mc_menu/menu-setmeal.avif" alt="" class="menu me-2">超值系列
-                                    </a>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#sharemeal"><img
+                                            src="./mc_menu/menu-sharemeal.avif" alt="" class="menu me-2">麥當勞分享盒</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#oneplusone"><img
+                                            src="./mc_menu/menu-oneplusone.avif" alt="" class="menu me-2">1+1星級點</a>
                                 </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#selectedseries">
-                                        <img src="./mc_menu/menu-super.avif" alt="" class="menu me-2">極選系列
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#setmeal">
-                                        <img src="./mc_menu/menu-subset.webp" alt="" class="menu me-2">超值配餐
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#happymeal">
-                                        <img src="./mc_menu/menu-happymeal.avif" alt="" class="menu me-2">Happy Meal®
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#sharemeal">
-                                        <img src="./mc_menu/menu-sharemeal.avif" alt="" class="menu me-2">麥當勞分享盒
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#oneplusone">
-                                        <img src="./mc_menu/menu-oneplusone.avif" alt="" class="menu me-2">1+1星級點
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#mcafe">
-                                        <img src="./mc_menu/menu-mycoff.avif" alt="" class="menu me-2">McCafé®
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#beverage">
-                                        <img src="./mc_menu/menu-berver.avif" alt="" class="menu me-2">飲料
-                                    </a>
-                                </li>
-                                <li class="p-3">
-                                    <a class="dropdown-item" href="foodmap.html#dessert">
-                                        <img src="./mc_menu/menu-dessert.avif" alt="" class="menu me-2">點心
-                                    </a>
-                                </li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#mcafe"><img
+                                            src="./mc_menu/menu-mycoff.avif" alt="" class="menu me-2">McCafé®</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#beverage"><img
+                                            src="./mc_menu/menu-berver.avif" alt="" class="menu me-2">飲料</a></li>
+                                <li class="p-3"><a class="dropdown-item" href="foodmap.html#dessert"><img
+                                            src="./mc_menu/menu-dessert.avif" alt="" class="menu me-2">點心</a></li>
                             </div>
-
                             <li class="w-100">
                                 <hr class="dropdown-divider">
                             </li>
@@ -108,74 +105,181 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="startorder.html">開始點餐</a>
+                    <li class="nav-item"><a class="nav-link" href="startorder.html">開始點餐</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="restlocate.html">餐廳位置</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="restlocate.html">餐廳位置</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">關於麥當勞</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                    <li class="nav-item"><a class="nav-link" href="about.html">關於麥當勞</a></li>
                 </ul>
             </div>
-            <!-- <button type="button" class="btn btn-danger me-3">立即加入</button>
-            <button type="button" class="shadow btn-outline-black btn btn-black"
-                style="color: black; border: 1px solid white;">登入</button> -->
         </div>
     </nav>
 
-    <!-- <div class="shadow fixed-top bg-white p-3 d-flex justify-content-end gap-2">
-        <div>
+    <div class="container" style="padding-top: 20px; padding-bottom: 50px;" id="sec">
+        <h1 class="text-center mb-4 fw-bold">尋找附近的麥當勞</h1>
 
-            <a href="">Back to mainweb<img src="mc_img/MCLogo.png" alt="MainLogo"></a>
+        <div class="row g-3">
+            <div class="col-lg-4 order-2 order-lg-1">
+                <div class="card shadow-sm h-100 border-0">
+                    <div
+                        class="card-header bg-danger text-white fw-bold d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-geo-alt-fill"></i> 附近餐廳</span>
+                        <span class="badge bg-light text-danger">3 間</span>
+                    </div>
+                    <div class="list-group list-group-flush" id="store-list-container">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 order-1 order-lg-2">
+                <div class="shadow border" id="map"></div>
+            </div>
         </div>
-        <button type="button" class="btn btn-danger">立即加入</button>
-        <button type="button" class="btn btn-black" style="color: white; border: 1px solid white;">登入</button>
-    </div> -->
+    </div>
 
-    <div class="container " style="padding: 20px;" id="sec">
-
-        <h1>MAP</h1>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7281.180054420291!2d120.64214146447749!3d24.151031783742773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d4595348e69%3A0x7b8bcb2c74826933!2z6bql55W25YueLeWPsOS4reWFrOebiuS6jOmkkOW7sw!5e0!3m2!1szh-TW!2stw!4v1765265025691!5m2!1szh-TW!2stw" width="1368" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    </div>
- 
-        </div>
-
-    <button type="button" 
-        id="btn-back-to-top" 
-        class="btn btn-danger btn-lg rounded-circle shadow"
-        style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000;"
-        onclick="backToTop()">
+    <button type="button" id="btn-back-to-top" class="btn btn-danger btn-lg rounded-circle shadow"
+        style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000;" onclick="backToTop()">
         <i class="bi bi-arrow-up"></i>
     </button>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
-        // 取得按鈕元素
+        // --- 回到頂部按鈕邏輯 ---
         let mybutton = document.getElementById("btn-back-to-top");
-
-        // 監聽網頁滾動事件
-        window.onscroll = function () {
-            scrollFunction();
-        };
-
+        window.onscroll = function () { scrollFunction(); };
         function scrollFunction() {
-            // 當卷軸向下滾動超過 200px 時，顯示按鈕
             if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                 mybutton.style.display = "block";
             } else {
                 mybutton.style.display = "none";
             }
         }
-
-        // 點擊按鈕時觸發的功能
         function backToTop() {
-            // 使用 behavior: 'smooth' 讓滾動有平滑動畫效果
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // --- 地圖與定位邏輯 ---
+
+        // 1. 設定使用者位置 (台中勤美附近)
+        const userLat = 24.1505;
+        const userLng = 120.6510;
+
+        // 2. ★ 修改點：在資料中加入 mapUrl (手動填入的 Google Map 連結)
+        // 這裡的經緯度 (lat, lng) 依然需要保留，為了在網頁地圖上插旗子 (Marker)
+        const storeData = [
+            {
+                name: "麥當勞-台中公益二餐廳",
+                lat: 24.1522,
+                lng: 120.6445,
+                address: "臺中市南屯區公益路二段128號",
+                status: "營業中",
+                rating: 3.5,
+                // 直接使用 Google Map 分享的連結
+                mapUrl: "https://maps.app.goo.gl/kqULW1PGmTuS4htc7"
+            },
+            {
+                name: "麥當勞-台中文心二餐廳－設有得來速",
+                lat: 24.1577,
+                lng: 120.6382,
+                address: "臺中市西屯區文心路二段57號1樓",
+                status: "營業中",
+                rating: 4.0,
+                mapUrl: "https://maps.app.goo.gl/kyTyUUCP45bX2m1N7"
+            },
+            {
+                name: "麥當勞-台中五權西餐廳（設有得來速）",
+                lat: 24.1402,
+                lng: 120.6406,
+                address: "臺中市南屯區五權西路二段250號",
+                status: "營業中",
+                rating: 4.0,
+                mapUrl: "https://maps.app.goo.gl/e4FESCm1CPbh5R2s6"
+            }
+        ];
+
+        // 3. 初始化地圖
+        const map = L.map('map').setView([userLat, userLng], 14);
+
+        // 4. 載入 OpenStreetMap 圖資
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 5. 標記「使用者位置」
+        const userMarker = L.circleMarker([userLat, userLng], {
+            color: 'white',
+            weight: 2,
+            fillColor: '#007bff',
+            fillOpacity: 1,
+            radius: 8
+        }).addTo(map);
+        userMarker.bindPopup("<b>您的位置</b>").openPopup();
+
+        // 6. 產生店家標記與左側列表
+        const listContainer = document.getElementById("store-list-container");
+
+        storeData.forEach((store, index) => {
+            // ★ 修改點：不再使用經緯度計算連結，而是直接讀取 store.mapUrl
+            // 如果你在上面 storeData 沒有填 mapUrl，這裡會變成 undefined
+            const googleMapUrl = store.mapUrl;
+
+            // --- A. 在地圖上加標記 ---
+            const marker = L.marker([store.lat, store.lng]).addTo(map);
+
+            // 設定彈出視窗
+            const popupContent = `
+                <div style="text-align:center; font-family: sans-serif; min-width: 160px;">
+                    <h6 style="font-weight:bold; margin-bottom:5px; color:#d32f2f;">${store.name}</h6>
+                    <p style="margin:0; font-size:12px;">${store.address}</p>
+                    <p style="color:#ffc107; margin:5px 0;">
+                        <i class="bi bi-star-fill"></i> ${store.rating}
+                    </p>
+                    <a href="${googleMapUrl}" target="_blank" style="text-decoration:none; color:white; background-color:#0d6efd; padding:4px 12px; border-radius:5px; font-size:12px; display:inline-block;">
+                        <i class="bi bi-map-fill"></i> 開啟 Google 地圖
+                    </a>
+                </div>
+            `;
+            marker.bindPopup(popupContent);
+
+            // --- B. 在左側清單加項目 ---
+            const item = document.createElement("div");
+            item.className = "list-group-item list-group-item-action store-list-item p-3";
+
+            const badgeClass = store.status === "營業中" ? "bg-success" : "bg-secondary";
+
+            item.innerHTML = `
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <h5 class="mb-1 fw-bold text-danger">${index + 1}. ${store.name}</h5>
+                    <span class="badge ${badgeClass}">${store.status}</span>
+                </div>
+                <p class="mb-1 text-muted small"><i class="bi bi-geo-alt"></i> ${store.address}</p>
+                
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small class="text-warning">
+                        ${'★'.repeat(Math.floor(store.rating))} 
+                        <span class="text-dark">(${store.rating})</span>
+                    </small>
+                    
+                    <a href="${googleMapUrl}" target="_blank" class="btn btn-sm btn-outline-primary google-map-btn">
+                        <i class="bi bi-map-fill"></i> 地圖導航
+                    </a>
+                </div>
+            `;
+
+            // 點擊清單項目時，地圖飛過去
+            item.addEventListener("click", (e) => {
+                if (e.target.closest('.google-map-btn')) {
+                    return;
+                }
+                map.flyTo([store.lat, store.lng], 16, {
+                    animate: true,
+                    duration: 1.5
+                });
+                marker.openPopup();
+            });
+
+            listContainer.appendChild(item);
+        });
     </script>
 </body>
 
